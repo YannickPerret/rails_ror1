@@ -1,0 +1,2 @@
+module StudentStudyBranchesHelper
+end

@@ -1,0 +1,20 @@
+<!-- app/views/contacts/new.html.erb -->
+<h1>Contactez-nous</h1>
+
+<%= form_with scope: :contact, url: create_contact_path, local: true do |form| %>
+  <div>
+    <%= form.label :name, "Votre nom" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :email, "Votre email" %>
+    <%= form.email_field :email %>
+  </div>
+  <div>
+    <%= form.label :message, "Votre message" %>
+    <%= form.text_area :message %>
+  </div>
+  <div>
+    <%= form.submit "Envoyer" %>
+  </div>
+<% end %>

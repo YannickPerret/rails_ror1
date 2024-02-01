@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gestion des notes - CPNV 2024</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header>
+    <nav>
+      <%= link_to 'Accueil', root_path %>
+      <%= link_to 'Student', students_path %>
+      <%= link_to 'Teacher', teachers_path %>
+      <%= link_to 'Class', school_classes_path %>
+      <%= link_to 'Branch', branches_path %>
+      <%= link_to 'Note', notes_path %>
+      <%= link_to 'Contact', new_contact_path %>
+
+    </nav>
+  </header>
+
+    <%= yield %>
+
+     <footer>
+    <p>© 2024 Gestion des notes. Tous droits réservés.</p>
+  </footer>
+  </body>
+</html>

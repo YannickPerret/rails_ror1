@@ -1,0 +1,22 @@
+<div id="<%= dom_id school_class %>">
+  <p>
+    <strong>Name:</strong>
+    <%= school_class.name %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= school_class.status %>
+  </p>
+
+  <p>
+    <strong>Years:</strong>
+    <%= school_class.years %>
+  </p>
+
+  <p>
+    <strong>Teachers:</strong>
+    <%= school_class.teachers.map(&:name).join(', ') %>
+  </p>
+
+</div>

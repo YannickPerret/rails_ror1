@@ -1,0 +1,2 @@
+module TeacherTeachBranchesHelper
+end

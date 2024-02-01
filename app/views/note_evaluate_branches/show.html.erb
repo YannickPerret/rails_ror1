@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @note_evaluate_branch %>
+
+<div>
+  <%= link_to "Edit this note evaluate branch", edit_note_evaluate_branch_path(@note_evaluate_branch) %> |
+  <%= link_to "Back to note evaluate branches", note_evaluate_branches_path %>
+
+  <%= button_to "Destroy this note evaluate branch", @note_evaluate_branch, method: :delete %>
+</div>

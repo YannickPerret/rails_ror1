@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Notes</h1>
+
+<div id="notes">
+  <% if @notes.empty? %>
+    <p>There are no notes yet.</p>
+  <% end %>
+
+  <% @notes.each do |note| %>
+    <%= render note %>
+    <p>
+      <%= link_to "Show this note", note %>
+    </p>
+  <% end %>
+</div>
+
+<% if @student.present? %>
+  <%= link_to 'New Note', new_student_note_path(@student) %>
+  <%= link_to 'Back to Students', student_path(@student) %>
+<% else %>
+  <%= link_to 'New Note', new_note_path %>
+<% end %>
