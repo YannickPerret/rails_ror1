@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>School class study branches</h1>
+
+<div id="school_class_study_branches">
+  <% @school_class_study_branches.each do |school_class_study_branch| %>
+    <%= render school_class_study_branch %>
+    <p>
+      <%= link_to "Show this school class study branch", school_class_study_branch %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New school class study branch", new_school_class_study_branch_path %>

@@ -2,10 +2,8 @@
 
 one:
   name: MyString
-  status: MyString
-  years: 1
+  status: false
 
 two:
   name: MyString
-  status: MyString
-  years: 1
+  status: false

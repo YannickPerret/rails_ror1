@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @branch_history %>
+
+<div>
+  <%= link_to "Edit this branch history", edit_branch_history_path(@branch_history) %> |
+  <%= link_to "Back to branch histories", branch_histories_path %>
+
+  <%= button_to "Destroy this branch history", @branch_history, method: :delete %>
+</div>

@@ -15,8 +15,7 @@ class SchoolClassesTest < ApplicationSystemTestCase
     click_on "New school class"
 
     fill_in "Name", with: @school_class.name
-    fill_in "Status", with: @school_class.status
-    fill_in "Years", with: @school_class.years
+    check "Status" if @school_class.status
     click_on "Create School class"
 
     assert_text "School class was successfully created"
@@ -28,8 +27,7 @@ class SchoolClassesTest < ApplicationSystemTestCase
     click_on "Edit this school class", match: :first
 
     fill_in "Name", with: @school_class.name
-    fill_in "Status", with: @school_class.status
-    fill_in "Years", with: @school_class.years
+    check "Status" if @school_class.status
     click_on "Update School class"
 
     assert_text "School class was successfully updated"

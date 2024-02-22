@@ -14,8 +14,8 @@ class TeacherConductSchoolClassesTest < ApplicationSystemTestCase
     visit teacher_conduct_school_classes_url
     click_on "New teacher conduct school class"
 
-    fill_in "School class", with: @teacher_conduct_school_class.school_class_id
-    fill_in "Teacher", with: @teacher_conduct_school_class.teacher_id
+    fill_in "People", with: @teacher_conduct_school_class.people_id
+    fill_in "Schoolclass", with: @teacher_conduct_school_class.schoolClass_id
     click_on "Create Teacher conduct school class"
 
     assert_text "Teacher conduct school class was successfully created"
@@ -26,8 +26,8 @@ class TeacherConductSchoolClassesTest < ApplicationSystemTestCase
     visit teacher_conduct_school_class_url(@teacher_conduct_school_class)
     click_on "Edit this teacher conduct school class", match: :first
 
-    fill_in "School class", with: @teacher_conduct_school_class.school_class_id
-    fill_in "Teacher", with: @teacher_conduct_school_class.teacher_id
+    fill_in "People", with: @teacher_conduct_school_class.people_id
+    fill_in "Schoolclass", with: @teacher_conduct_school_class.schoolClass_id
     click_on "Update Teacher conduct school class"
 
     assert_text "Teacher conduct school class was successfully updated"

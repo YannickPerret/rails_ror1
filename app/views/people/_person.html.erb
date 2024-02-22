@@ -1,0 +1,57 @@
+<div id="<%= dom_id person %>">
+  <p>
+    <strong>Firstname:</strong>
+    <%= person.firstname %>
+  </p>
+
+  <p>
+    <strong>Lastname:</strong>
+    <%= person.lastname %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= person.address %>
+  </p>
+
+  <p>
+    <strong>Npa:</strong>
+    <%= person.npa %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= person.city %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= person.email %>
+  </p>
+
+  <p>
+    <strong>Phonenumber:</strong>
+    <%= person.phoneNumber %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= person.status %>
+  </p>
+
+  <p>
+    <strong>Acronym:</strong>
+    <%= person.acronym %>
+  </p>
+
+  <p>
+    <strong>Password digest:</strong>
+    <%= person.password_digest %>
+  </p>
+
+  <p>
+    <strong>Role:</strong>
+  <%= person.role ? person.role.name : 'No role assigned' %>
+  </p>
+
+</div>

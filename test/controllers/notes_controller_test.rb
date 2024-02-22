@@ -17,7 +17,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create note" do
     assert_difference("Note.count") do
-      post notes_url, params: { note: { note: @note.note, student_id: @note.student_id } }
+      post notes_url, params: { note: { note: @note.note, people_id: @note.people_id } }
     end
 
     assert_redirected_to note_url(Note.last)
@@ -34,7 +34,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update note" do
-    patch note_url(@note), params: { note: { note: @note.note, student_id: @note.student_id } }
+    patch note_url(@note), params: { note: { note: @note.note, people_id: @note.people_id } }
     assert_redirected_to note_url(@note)
   end
 

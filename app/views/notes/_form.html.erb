@@ -17,12 +17,8 @@
   </div>
 
   <div>
-    <%= form.label :student_id, style: "display: block" %>
-    <% if @note.student %>
-      <%= form.text_field :student_id, value: @note.student.name, disabled: true %>
-    <% else %>
-      <%= form.collection_select :student_id, Student.all, :id, :name %>
-    <% end %>
+    <%= form.label :people_id, style: "display: block" %>
+    <%= form.text_field :people_id %>
   </div>
 
   <div>

@@ -4,18 +4,15 @@ class NotesController < ApplicationController
   # GET /notes or /notes.json
   def index
     @notes = Note.all
-    @student = Student.find(params[:student_id]) if params[:student_id]
   end
 
   # GET /notes/1 or /notes/1.json
-  def show ()
-
+  def show
   end
 
   # GET /notes/new
   def new
     @note = Note.new
-    @note.student_id = params[:student_id]
   end
 
   # GET /notes/1/edit
@@ -68,6 +65,6 @@ class NotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def note_params
-      params.require(:note).permit(:note, :student_id)
+      params.require(:note).permit(:note, :people_id)
     end
 end

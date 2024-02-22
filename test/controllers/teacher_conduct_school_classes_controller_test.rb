@@ -17,7 +17,7 @@ class TeacherConductSchoolClassesControllerTest < ActionDispatch::IntegrationTes
 
   test "should create teacher_conduct_school_class" do
     assert_difference("TeacherConductSchoolClass.count") do
-      post teacher_conduct_school_classes_url, params: { teacher_conduct_school_class: { school_class_id: @teacher_conduct_school_class.school_class_id, teacher_id: @teacher_conduct_school_class.teacher_id } }
+      post teacher_conduct_school_classes_url, params: { teacher_conduct_school_class: { people_id: @teacher_conduct_school_class.people_id, schoolClass_id: @teacher_conduct_school_class.schoolClass_id } }
     end
 
     assert_redirected_to teacher_conduct_school_class_url(TeacherConductSchoolClass.last)
@@ -34,7 +34,7 @@ class TeacherConductSchoolClassesControllerTest < ActionDispatch::IntegrationTes
   end
 
   test "should update teacher_conduct_school_class" do
-    patch teacher_conduct_school_class_url(@teacher_conduct_school_class), params: { teacher_conduct_school_class: { school_class_id: @teacher_conduct_school_class.school_class_id, teacher_id: @teacher_conduct_school_class.teacher_id } }
+    patch teacher_conduct_school_class_url(@teacher_conduct_school_class), params: { teacher_conduct_school_class: { people_id: @teacher_conduct_school_class.people_id, schoolClass_id: @teacher_conduct_school_class.schoolClass_id } }
     assert_redirected_to teacher_conduct_school_class_url(@teacher_conduct_school_class)
   end
 

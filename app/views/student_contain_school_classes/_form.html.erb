@@ -1,0 +1,32 @@
+<%= form_with(model: student_contain_school_class) do |form| %>
+  <% if student_contain_school_class.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(student_contain_school_class.errors.count, "error") %> prohibited this student_contain_school_class from being saved:</h2>
+
+      <ul>
+        <% student_contain_school_class.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :people_id, style: "display: block" %>
+    <%= form.text_field :people_id %>
+  </div>
+
+  <div>
+    <%= form.label :school_year, style: "display: block" %>
+    <%= form.text_field :school_year %>
+  </div>
+
+  <div>
+    <%= form.label :schoolClass_id, style: "display: block" %>
+    <%= form.text_field :schoolClass_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

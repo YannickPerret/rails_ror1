@@ -17,8 +17,13 @@
   </div>
 
   <div>
+    <%= form.label :code, style: "display: block" %>
+    <%= form.text_field :code %>
+  </div>
+
+  <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.check_box :status %>
   </div>
 
   <div>

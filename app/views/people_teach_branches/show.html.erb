@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @people_teach_branch %>
+
+<div>
+  <%= link_to "Edit this people teach branch", edit_people_teach_branch_path(@people_teach_branch) %> |
+  <%= link_to "Back to people teach branches", people_teach_branches_path %>
+
+  <%= button_to "Destroy this people teach branch", @people_teach_branch, method: :delete %>
+</div>

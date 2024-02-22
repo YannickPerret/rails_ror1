@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Branch histories</h1>
+
+<div id="branch_histories">
+  <% @branch_histories.each do |branch_history| %>
+    <%= render branch_history %>
+    <p>
+      <%= link_to "Show this branch history", branch_history %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New branch history", new_branch_history_path %>

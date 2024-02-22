@@ -14,9 +14,10 @@ class BranchesTest < ApplicationSystemTestCase
     visit branches_url
     click_on "New branch"
 
+    fill_in "Code", with: @branch.code
     fill_in "Moyenne", with: @branch.moyenne
     fill_in "Name", with: @branch.name
-    fill_in "Status", with: @branch.status
+    check "Status" if @branch.status
     click_on "Create Branch"
 
     assert_text "Branch was successfully created"
@@ -27,9 +28,10 @@ class BranchesTest < ApplicationSystemTestCase
     visit branch_url(@branch)
     click_on "Edit this branch", match: :first
 
+    fill_in "Code", with: @branch.code
     fill_in "Moyenne", with: @branch.moyenne
     fill_in "Name", with: @branch.name
-    fill_in "Status", with: @branch.status
+    check "Status" if @branch.status
     click_on "Update Branch"
 
     assert_text "Branch was successfully updated"

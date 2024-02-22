@@ -1,0 +1,1 @@
+json.partial! "school_class_study_branches/school_class_study_branch", school_class_study_branch: @school_class_study_branch

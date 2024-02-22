@@ -16,19 +16,14 @@
     <%= form.text_field :name %>
   </div>
 
+   <div>
+    <%= form.label :teacher_id, "Teacher", style: "display: block" %>
+    <%= form.collection_select :teacher_id, @teachers, :id, :name, include_blank: true %>
+  </div>
+
   <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :years, style: "display: block" %>
-    <%= form.number_field :years %>
-  </div>
-
-  <div>
-    <%= form.label :teachers, style: "display: block" %>
-    <%= form.collection_select :teacher_ids, Teacher.all, :id, :name, {}, { multiple: true } %>
+    <%= form.check_box :status, {checked: true} %> active
   </div>
 
   <div>

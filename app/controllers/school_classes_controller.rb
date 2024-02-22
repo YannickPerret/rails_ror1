@@ -13,14 +13,12 @@ class SchoolClassesController < ApplicationController
   # GET /school_classes/new
   def new
     @school_class = SchoolClass.new
-    @teachers = Teacher.all
-
+    teacher_role = Role.find_by(name: 'Teacher')
+    @teachers = teacher_role.present? ? teacher_role.people : Person.none
   end
 
   # GET /school_classes/1/edit
   def edit
-    @school_class = SchoolClass.find(params[:id])
-    @teachers = Teacher.all
   end
 
   # POST /school_classes or /school_classes.json
@@ -53,10 +51,6 @@ class SchoolClassesController < ApplicationController
 
   # DELETE /school_classes/1 or /school_classes/1.json
   def destroy
-    @school_class.teacher_conduct_school_classes.each do |association|
-      association.destroy
-    end
-    
     @school_class.destroy!
 
     respond_to do |format|
@@ -73,6 +67,6 @@ class SchoolClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def school_class_params
-      params.require(:school_class).permit(:name, :status, :years, teacher_ids: [])
+      params.require(:school_class).permit(:name, :status)
     end
 end

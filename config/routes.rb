@@ -1,28 +1,39 @@
 Rails.application.routes.draw do
+  resources :branches do
+    resources :branch_histories, only: [:index, :show]
+    resources :note_evaluate_branches, only: [:index, :show]
+  end
+  
+  # Routes pour SchoolClass, incluant les sous-ressources pour StudentContainSchoolClass et TeacherConductSchoolClass
+  resources :school_classes do
+    resources :student_contain_school_classes, only: [:index, :show]
+    resources :teacher_conduct_school_classes, only: [:index, :show]
+    resources :school_class_study_branches, only: [:index, :show]
+  end
+  
+  # Routes pour Role
+  resources :roles
+  
+  # Routes pour People, incluant les sous-ressources pour Notes et PeopleTeachBranch
+  resources :people do
+    resources :notes, only: [:index, :show]
+    resources :people_teach_branches, only: [:index, :show]
+  end
+  
+  # Routes pour Note, incluant les sous-ressources pour NoteEvaluateBranch
+  resources :notes do
+    resources :note_evaluate_branches, only: [:index, :show]
+  end
   get 'contacts/new'
-  get 'home/index'
-  resources :student_study_branches
-  resources :teacher_teach_branches
-  resources :teacher_conduct_school_classes
-  resources :note_evaluate_branches
-  resources :notes
   resources :students do
     resources :notes, only: [:index, :show, :new, :create]
     get 'branches', to: 'students#branches', as: 'branches'
   end
-  resources :school_classes
-  resources :teachers
-  resources :branches
 
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   root "home#index"
 
-  get 'contact', to: 'contacts#new', as: 'new_contact'
-  post 'contact', to: 'contacts#create', as: 'create_contact'
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")

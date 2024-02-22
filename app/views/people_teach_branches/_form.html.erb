@@ -1,0 +1,27 @@
+<%= form_with(model: people_teach_branch) do |form| %>
+  <% if people_teach_branch.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(people_teach_branch.errors.count, "error") %> prohibited this people_teach_branch from being saved:</h2>
+
+      <ul>
+        <% people_teach_branch.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :people_id, style: "display: block" %>
+    <%= form.text_field :people_id %>
+  </div>
+
+  <div>
+    <%= form.label :branch_id, style: "display: block" %>
+    <%= form.text_field :branch_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

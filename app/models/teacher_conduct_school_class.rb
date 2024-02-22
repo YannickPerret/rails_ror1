@@ -1,4 +1,4 @@
 class TeacherConductSchoolClass < ApplicationRecord
-  belongs_to :teacher
-  belongs_to :school_class
+  belongs_to :people
+  belongs_to :schoolClass
 end

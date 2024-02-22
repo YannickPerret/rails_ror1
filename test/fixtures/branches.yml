@@ -2,10 +2,12 @@
 
 one:
   name: MyString
-  status: MyString
+  code: MyString
+  status: false
   moyenne: 1
 
 two:
   name: MyString
-  status: MyString
+  code: MyString
+  status: false
   moyenne: 1
