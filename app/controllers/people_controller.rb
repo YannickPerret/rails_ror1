@@ -65,17 +65,18 @@ class PeopleController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_params
-      params.require(:person).permit(:firstname, :lastname, :address, :npa, :city, :email, :phoneNumber, :status, :acronym, :password_digest, :role_id, :school_class_id, :branch_id)
+      params.require(:person).permit(:firstname, :lastname, :address, :npa, :city, :email, :phoneNumber, :status, :acronym, :password_digest, :role_id)
     end
 
     def handle_class_assignment(person)
       school_class_id = params[:person][:school_class_id]
       return unless school_class_id.present?
-    
+        
       if person.role.name == 'Student'
-        StudentContainSchoolClass.create(person_id: person.id, school_class_id: school_class_id)
+        StudentContainSchoolClass.create(person: person, school_class_id: school_class_id)
       elsif person.role.name == 'Teacher'
-        TeacherConductSchoolClass.create(person_id: person.id, school_class_id: school_class_id)
+        TeacherConductSchoolClass.create(person: person, school_class_id: school_class_id)
       end
     end
+    
 end

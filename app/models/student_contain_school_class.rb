@@ -1,4 +1,4 @@
 class StudentContainSchoolClass < ApplicationRecord
-  belongs_to :people
+  belongs_to :person
   belongs_to :schoolClass
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_104853) do
   create_table "branch_histories", force: :cascade do |t|
     t.string "name"
     t.date "effective_date"
@@ -63,7 +63,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
     t.integer "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rollable_id"
+    t.string "rollable_type"
     t.index ["role_id"], name: "index_people_on_role_id"
+    t.index ["rollable_id", "rollable_type"], name: "index_people_on_rollable_id_and_rollable_type"
   end
 
   create_table "people_teach_branches", force: :cascade do |t|
@@ -98,12 +101,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
   end
 
   create_table "student_contain_school_classes", force: :cascade do |t|
-    t.integer "people_id", null: false
-    t.string "school_year"
+    t.integer "person_id", null: false
     t.integer "schoolClass_id", null: false
+    t.string "school_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["people_id"], name: "index_student_contain_school_classes_on_people_id"
+    t.index ["person_id"], name: "index_student_contain_school_classes_on_person_id"
     t.index ["schoolClass_id"], name: "index_student_contain_school_classes_on_schoolClass_id"
   end
 
@@ -125,7 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
   add_foreign_key "people_teach_branches", "people", column: "people_id"
   add_foreign_key "school_class_study_branches", "branches"
   add_foreign_key "school_class_study_branches", "schoolClasses"
-  add_foreign_key "student_contain_school_classes", "people", column: "people_id"
+  add_foreign_key "student_contain_school_classes", "people"
   add_foreign_key "student_contain_school_classes", "schoolClasses"
   add_foreign_key "teacher_conduct_school_classes", "people", column: "people_id"
   add_foreign_key "teacher_conduct_school_classes", "schoolClasses"
