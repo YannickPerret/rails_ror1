@@ -1,0 +1,59 @@
+<div id="<%= dom_id student %>">
+  <p>
+    <strong>Firstname:</strong>
+    <%= student.firstname %>
+  </p>
+
+  <p>
+    <strong>Lastname:</strong>
+    <%= student.lastname %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= student.address %>
+  </p>
+
+  <p>
+    <strong>Npa:</strong>
+    <%= student.npa %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= student.city %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= student.email %>
+  </p>
+
+  <p>
+    <strong>Phonenumber:</strong>
+    <%= student.phoneNumber %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= student.status %>
+  </p>
+
+  <p>
+    <strong>Acronym:</strong>
+    <%= student.acronym %>
+  </p>
+
+  <p>
+    <strong>Password digest:</strong>
+    <%= student.password_digest %>
+  </p>
+
+  <h3>Classes:</h3>
+  <ul>
+    <% student.school_classes.each do |school_class| %>
+      <li><%= link_to "#{school_class.name_with_year}", school_class_path(school_class) %></li>
+    <% end %>
+  </ul>
+
+</div>

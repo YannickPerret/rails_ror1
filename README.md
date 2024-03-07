@@ -37,6 +37,8 @@ rails generate scaffold schoolClassStudyBranch schoolClass:references branch:ref
 
 
 
+
+
 rails generate scaffold Branch name:string code:string:uniq status:boolean moyenne:integer
 rails generate scaffold SchoolClass name:string status:boolean
 rails generate scaffold BranchHistory name:string effective_date:date end_date:date branch:references

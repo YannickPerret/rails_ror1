@@ -1,0 +1,11 @@
+<%= form_with(model: @school_class, url: school_class_branches_path(@school_class), method: :post) do |form| %>
+    <div class="field">
+        <%= form.label :branch_name %>
+        <%= form.text_field :branch_name %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "Add Branch" %>
+    </div>
+<% end %>
+<%= link_to "Back", school_class_path(@school_class) %>

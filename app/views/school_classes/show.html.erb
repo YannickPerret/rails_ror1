@@ -2,7 +2,26 @@
 
 <%= render @school_class %>
 
+<h2>Students:</h2>
+
+<ul>
+  <% @students.each do |student| %>
+    <li><%= link_to "#{student.name}", student_path(student) %></li>
+  <% end %>
+</ul>
+
+<h2>Branches:</h2>
+
+<ul>
+  <% @school_class.branches.each do |branch| %>
+    <li><%= link_to "#{branch.name} || #{branch.code}", branch_path(branch) %></li>
+  <% end %>
+</ul>
+
 <div>
+  <%= link_to "Afficher les notes", show_notes_school_class_path(@school_class) %>
+  <%= link_to 'Modifier les branches', edit_branches_school_class_path(@school_class) %>
+
   <%= link_to "Edit this school class", edit_school_class_path(@school_class) %> |
   <%= link_to "Back to school classes", school_classes_path %>
 

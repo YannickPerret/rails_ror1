@@ -1,6 +1,6 @@
-class CreatePeople < ActiveRecord::Migration[7.1]
+class CreateUsers < ActiveRecord::Migration[7.1]
   def change
-    create_table :people do |t|
+    create_table :users do |t|
       t.string :firstname
       t.string :lastname
       t.string :address
@@ -8,10 +8,10 @@ class CreatePeople < ActiveRecord::Migration[7.1]
       t.string :city
       t.string :email
       t.string :phoneNumber
-      t.boolean :status
       t.string :acronym
       t.string :password_digest
-      t.references :role, null: false, foreign_key: true
+      t.boolean :status
+      t.string :type
 
       t.timestamps
     end

@@ -17,8 +17,8 @@
   </div>
 
    <div>
-    <%= form.label :teacher_id, "Teacher", style: "display: block" %>
-    <%= form.collection_select :teacher_id, @teachers, :id, :name, include_blank: true %>
+    <%= form.label :teacher_ids, "Teachers", style: "display: block" %>
+    <%= form.collection_select :teacher_ids, @teachers, :id, :name, {}, { multiple: true } %>
   </div>
 
   <div>

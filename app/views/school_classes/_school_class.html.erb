@@ -1,7 +1,15 @@
 <div id="<%= dom_id school_class %>">
+
   <p>
     <strong>Name:</strong>
     <%= school_class.name %>
+  </p>
+
+  <p>
+    <strong>Teachers:</strong>
+    <% school_class.teachers.each do |teacher| %>
+      <%= teacher.name %><br>
+    <% end %>
   </p>
 
   <p>

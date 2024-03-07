@@ -16,13 +16,14 @@
         <%= link_to 'Accueil', root_path %>
         <%= link_to 'Branches', branches_path %>
         <%= link_to 'Classes', school_classes_path %>
-        <%= link_to 'People', people_path %>
+        <%= link_to 'Élèves', students_path %>
+        <%= link_to 'Enseignants', teachers_path %>
         <%= link_to 'Notes', notes_path %>
-        <%= link_to 'Roles', roles_path %>
       </nav>
     </header>
-
+    <main>
     <%= yield %>
+    </main>
 
     <footer>
       <p>© 2024 Gestion des notes. Tous droits réservés.</p>

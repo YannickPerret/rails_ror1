@@ -1,5 +1,46 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: %i[ show edit update destroy ]
+  helper_method :selected_teacher
+
+  def selected_teacher(branch, school_class)
+    teacher_conduct = TeacherConductSchoolClass.find_by(branch: branch, school_class: school_class)
+    teacher_conduct&.teacher_id
+  end
+
+  def show_notes
+  @school_class = SchoolClass.find(params[:id])
+  @students = @school_class.students
+  @branches = @school_class.branches
+
+  @notes = {}
+  @students.each do |student|
+    @notes[student.id] = {}
+    @branches.each do |branch|
+      note_record = Note.joins(:note_evaluate_branches).where(person: student, note_evaluate_branches: { branch_id: branch.id }).first
+      @notes[student.id][branch.id] = note_record ? note_record.note : "N/A"
+    end
+  end
+end
+
+ # GET /school_classes/:id/edit_branches
+ def edit_branches
+  @school_class = SchoolClass.find(params[:id])
+  @available_branches = Branch.all
+  @teachers = User.where(type: 'Teacher') 
+end
+
+# PATCH/PUT /school_classes/:id/update_branches
+def update_branches
+  @school_class = SchoolClass.find(params[:id])
+  if update_branches_and_teachers
+    redirect_to @school_class, notice: 'Les branches et les enseignants ont été mis à jour avec succès.'
+  else
+    @available_branches = Branch.all
+    @teachers = User.where(type: 'Teacher')
+    render :edit_branches
+  end
+end
+
 
   # GET /school_classes or /school_classes.json
   def index
@@ -8,23 +49,24 @@ class SchoolClassesController < ApplicationController
 
   # GET /school_classes/1 or /school_classes/1.json
   def show
+    @students = @school_class.students
+    @branches = @school_class.branches
   end
 
-  # GET /school_classes/new
+  # GET /school_classes/ne
   def new
     @school_class = SchoolClass.new
-    teacher_role = Role.find_by(name: 'Teacher')
-    @teachers = teacher_role.present? ? teacher_role.people : Person.none
+    @teachers = Teacher.all
   end
 
   # GET /school_classes/1/edit
   def edit
+    @teachers = Teacher.all
   end
 
   # POST /school_classes or /school_classes.json
   def create
     @school_class = SchoolClass.new(school_class_params)
-
     respond_to do |format|
       if @school_class.save
         format.html { redirect_to school_class_url(@school_class), notice: "School class was successfully created." }
@@ -67,6 +109,24 @@ class SchoolClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def school_class_params
-      params.require(:school_class).permit(:name, :status)
+      params.require(:school_class).permit(:name, :status, teacher_ids: [])
+    end
+    def school_class_branches_params
+      params.require(:school_class).permit(branch_ids: [])
+    end
+
+    def update_branches_and_teachers
+      ActiveRecord::Base.transaction do
+        @school_class.branch_ids = params[:school_class][:branch_ids].reject(&:blank?)
+        params[:school_class][:branches_teachers].each do |branch_id, teacher_id|
+          next if teacher_id.blank?
+          TeacherConductSchoolClass.find_or_create_by(branch_id: branch_id, school_class_id: @school_class.id) do |tcsc|
+            tcsc.teacher_id = teacher_id
+          end
+        end
+      end
+      true
+    rescue ActiveRecord::RecordInvalid
+      false
     end
 end

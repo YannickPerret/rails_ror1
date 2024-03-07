@@ -1,0 +1,78 @@
+<%= form_with(model: teacher) do |form| %>
+  <% if teacher.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+
+      <ul>
+        <% teacher.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :firstname, style: "display: block" %>
+    <%= form.text_field :firstname %>
+  </div>
+
+  <div>
+    <%= form.label :lastname, style: "display: block" %>
+    <%= form.text_field :lastname %>
+  </div>
+
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :npa, style: "display: block" %>
+    <%= form.number_field :npa %>
+  </div>
+
+  <div>
+    <%= form.label :city, style: "display: block" %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :phoneNumber, style: "display: block" %>
+    <%= form.text_field :phoneNumber %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.check_box :status, {checked: true} %> active
+  </div>
+
+  <div>
+    <%= form.label :acronym, style: "display: block" %>
+    <%= form.text_field :acronym %>
+  </div>
+
+  <div>
+    <%= form.label :password_digest, style: "display: block" %>
+    <%= form.text_field :password_digest %>
+  </div>
+
+  <div>
+    <%= form.label :type, style: "display: block" %>
+    <%= form.text_field :type %>
+  </div>
+
+  <div>
+    <%= form.label :school_class_id, "Master class", style: "display: block" %>
+    <%= form.collection_select :school_class_id, SchoolClass.all, :id, :name, include_blank: true %>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-class PeopleTeachBranchesController < ApplicationController
+class UsersTeachBranchesController < ApplicationController
   before_action :set_people_teach_branch, only: %i[ show edit update destroy ]
 
   # GET /people_teach_branches or /people_teach_branches.json

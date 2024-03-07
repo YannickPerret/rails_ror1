@@ -1,0 +1,10 @@
+<%= form_for @school_class, url: update_branches_school_class_path do |f| %>
+  <% @available_branches.each do |branch| %>
+    <div>
+      <%= check_box_tag "school_class[branch_ids][]", branch.id, @school_class.branches.include?(branch) %>
+      <%= label_tag "school_class_branch_ids_#{branch.id}", branch.name %>
+     <%= select_tag "school_class[branches_teachers][#{branch.id}]", options_from_collection_for_select(@teachers, :id, :full_name, selected_teacher(branch, @school_class)), include_blank: true %>
+    </div>
+  <% end %>
+  <%= f.submit "Enregistrer les branches et les enseignants" %>
+<% end %>

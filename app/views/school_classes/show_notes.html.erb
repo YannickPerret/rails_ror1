@@ -1,0 +1,25 @@
+<h2>Notes pour <%= @school_class.name %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Élève</th>
+      <% @branches.each do |branch| %>
+        <th><%= branch.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.name %></td>
+        <% @branches.each do |branch| %>
+          <td><%= @notes[student.id][branch.id] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to "Retour", school_classes_path %>

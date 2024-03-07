@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_104853) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
   create_table "branch_histories", force: :cascade do |t|
     t.string "name"
     t.date "effective_date"
@@ -49,48 +49,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_104853) do
     t.index ["people_id"], name: "index_notes_on_people_id"
   end
 
-  create_table "people", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.string "address"
-    t.integer "npa"
-    t.string "city"
-    t.string "email"
-    t.string "phoneNumber"
-    t.boolean "status"
-    t.string "acronym"
-    t.string "password_digest"
-    t.integer "role_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "rollable_id"
-    t.string "rollable_type"
-    t.index ["role_id"], name: "index_people_on_role_id"
-    t.index ["rollable_id", "rollable_type"], name: "index_people_on_rollable_id_and_rollable_type"
-  end
-
   create_table "people_teach_branches", force: :cascade do |t|
-    t.integer "people_id", null: false
+    t.integer "user_id", null: false
     t.integer "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_people_teach_branches_on_branch_id"
-    t.index ["people_id"], name: "index_people_teach_branches_on_people_id"
-  end
-
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_people_teach_branches_on_user_id"
   end
 
   create_table "school_class_study_branches", force: :cascade do |t|
-    t.integer "schoolClass_id", null: false
+    t.integer "school_class_id", null: false
     t.integer "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_school_class_study_branches_on_branch_id"
-    t.index ["schoolClass_id"], name: "index_school_class_study_branches_on_schoolClass_id"
+    t.index ["school_class_id"], name: "index_school_class_study_branches_on_school_class_id"
   end
 
   create_table "school_classes", force: :cascade do |t|
@@ -101,35 +75,50 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_104853) do
   end
 
   create_table "student_contain_school_classes", force: :cascade do |t|
-    t.integer "person_id", null: false
-    t.integer "schoolClass_id", null: false
+    t.integer "user_id", null: false
+    t.integer "school_class_id", null: false
     t.string "school_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_student_contain_school_classes_on_person_id"
-    t.index ["schoolClass_id"], name: "index_student_contain_school_classes_on_schoolClass_id"
+    t.index ["school_class_id"], name: "index_student_contain_school_classes_on_school_class_id"
+    t.index ["user_id"], name: "index_student_contain_school_classes_on_user_id"
   end
 
   create_table "teacher_conduct_school_classes", force: :cascade do |t|
-    t.integer "people_id", null: false
-    t.integer "schoolClass_id", null: false
+    t.integer "user_id", null: false
+    t.integer "school_class_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["people_id"], name: "index_teacher_conduct_school_classes_on_people_id"
-    t.index ["schoolClass_id"], name: "index_teacher_conduct_school_classes_on_schoolClass_id"
+    t.index ["school_class_id"], name: "index_teacher_conduct_school_classes_on_school_class_id"
+    t.index ["user_id"], name: "index_teacher_conduct_school_classes_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "address"
+    t.integer "npa"
+    t.string "city"
+    t.string "email"
+    t.string "phoneNumber"
+    t.string "acronym"
+    t.string "password_digest"
+    t.boolean "status"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "branch_histories", "branches"
   add_foreign_key "note_evaluate_branches", "branches"
   add_foreign_key "note_evaluate_branches", "notes"
   add_foreign_key "notes", "people", column: "people_id"
-  add_foreign_key "people", "roles"
   add_foreign_key "people_teach_branches", "branches"
-  add_foreign_key "people_teach_branches", "people", column: "people_id"
+  add_foreign_key "people_teach_branches", "users"
   add_foreign_key "school_class_study_branches", "branches"
-  add_foreign_key "school_class_study_branches", "schoolClasses"
-  add_foreign_key "student_contain_school_classes", "people"
-  add_foreign_key "student_contain_school_classes", "schoolClasses"
-  add_foreign_key "teacher_conduct_school_classes", "people", column: "people_id"
-  add_foreign_key "teacher_conduct_school_classes", "schoolClasses"
+  add_foreign_key "school_class_study_branches", "school_classes"
+  add_foreign_key "student_contain_school_classes", "school_classes"
+  add_foreign_key "student_contain_school_classes", "users"
+  add_foreign_key "teacher_conduct_school_classes", "school_classes"
+  add_foreign_key "teacher_conduct_school_classes", "users"
 end
