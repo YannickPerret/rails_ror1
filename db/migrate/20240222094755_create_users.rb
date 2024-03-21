@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :email
       t.string :phoneNumber
       t.string :acronym
+      t.string :password
       t.string :password_digest
       t.boolean :status
       t.string :type

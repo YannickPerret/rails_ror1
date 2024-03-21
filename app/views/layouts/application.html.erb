@@ -18,7 +18,15 @@
         <%= link_to 'Classes', school_classes_path %>
         <%= link_to 'Élèves', students_path %>
         <%= link_to 'Enseignants', teachers_path %>
-        <%= link_to 'Notes', notes_path %>
+        <% if current_user %>
+          <% if current_user.student? %>
+            <%= link_to 'Mes notes', student_notes_path(current_user) %>
+          <% end %>
+        
+          <%= button_to 'Déconnexion', '/logout', method: :delete %> 
+        <% else %>
+          <%= link_to 'Connexion', '/login' %>
+        <% end %>
       </nav>
     </header>
     <main>

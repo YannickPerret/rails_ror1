@@ -1,4 +1,4 @@
 class SchoolClassStudyBranch < ApplicationRecord
-  belongs_to :schoolClass
+  belongs_to :school_class
   belongs_to :branch
 end

@@ -43,19 +43,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
 
   create_table "notes", force: :cascade do |t|
     t.integer "note"
-    t.integer "people_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["people_id"], name: "index_notes_on_people_id"
-  end
-
-  create_table "people_teach_branches", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["branch_id"], name: "index_people_teach_branches_on_branch_id"
-    t.index ["user_id"], name: "index_people_teach_branches_on_user_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "school_class_study_branches", force: :cascade do |t|
@@ -76,7 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
 
   create_table "student_contain_school_classes", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "school_class_id", null: false
+    t.integer "school_class_id"
     t.string "school_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,6 +84,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
     t.index ["user_id"], name: "index_teacher_conduct_school_classes_on_user_id"
   end
 
+  create_table "teacher_teach_branches", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "branch_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_teacher_teach_branches_on_branch_id"
+    t.index ["user_id"], name: "index_teacher_teach_branches_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
     t.string "email"
     t.string "phoneNumber"
     t.string "acronym"
+    t.string "password"
     t.string "password_digest"
     t.boolean "status"
     t.string "type"
@@ -112,13 +113,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_094761) do
   add_foreign_key "branch_histories", "branches"
   add_foreign_key "note_evaluate_branches", "branches"
   add_foreign_key "note_evaluate_branches", "notes"
-  add_foreign_key "notes", "people", column: "people_id"
-  add_foreign_key "people_teach_branches", "branches"
-  add_foreign_key "people_teach_branches", "users"
+  add_foreign_key "notes", "users"
   add_foreign_key "school_class_study_branches", "branches"
   add_foreign_key "school_class_study_branches", "school_classes"
   add_foreign_key "student_contain_school_classes", "school_classes"
   add_foreign_key "student_contain_school_classes", "users"
   add_foreign_key "teacher_conduct_school_classes", "school_classes"
   add_foreign_key "teacher_conduct_school_classes", "users"
+  add_foreign_key "teacher_teach_branches", "branches"
+  add_foreign_key "teacher_teach_branches", "users"
 end

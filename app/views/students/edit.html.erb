@@ -7,12 +7,14 @@
 <h3>Classes Actuelles:</h3>
 <ul>
   <% @student.student_contain_school_classes.order(:school_year).each do |association| %>
-    <li>
-      <%= association.school_class.name %> - <%= association.school_year %>
-      <%= form_with url: remove_student_school_class_path(association), method: :delete do |form| %>
-        <%= form.submit "Supprimer", data: { confirm: "Êtes-vous sûr ?" } %>
-      <% end %>
-    </li>
+    <% if association.school_class.present? %>
+      <li>
+        <%= association.school_class.name %> - <%= association.school_year %>
+        <%= form_with url: remove_student_school_class_path(association), method: :delete do |form| %>
+          <%= form.submit "Supprimer", data: { confirm: "Êtes-vous sûr ?" } %>
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 

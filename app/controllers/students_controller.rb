@@ -70,7 +70,7 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.require(:student).permit(:firstname, :lastname, :address, :npa, :city, :email, :phoneNumber, :status, :acronym, :password_digest, :type, { school_class_ids: [] }, student_contain_school_classes_attributes: [:school_class_id, :school_year])
+        params.require(:student).permit(:firstname, :lastname, :address, :npa, :city, :email, :phoneNumber, :status, :acronym, :password, :password_digest, :type, { school_class_ids: [] }, student_contain_school_classes_attributes: [:school_class_id, :school_year])
     end
 
 end

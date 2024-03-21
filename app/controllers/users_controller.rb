@@ -22,14 +22,15 @@ class UserController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+  
     respond_to do |format|
       if @user.save
         handle_class_assignment(@user)
-        redirect_to @user, notice: 'User was successfully created.'
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.turbo_stream { redirect_to @user, status: :created }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.html { redirect_to new_user_url, alert: 'There were errors.' }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -65,7 +66,7 @@ class UserController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :address, :npa, :city, :email, :phoneNumber, :status, :acronym, :password_digest, :role_id)
+      params.require(:user).permit(:firstname, :lastname, :address, :npa, :city, :email, :phoneNumber, :status, :acronym, :password_digest, :role_id, :school_class_id)
     end
 
     def handle_class_assignment(user)

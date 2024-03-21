@@ -1,5 +1,5 @@
-class UsersTeachBranchesController < ApplicationController
-  before_action :set_people_teach_branch, only: %i[ show edit update destroy ]
+class TeacherTeachBranchesController < ApplicationController
+  before_action :set_teacher_teach_branch, only: %i[ show edit update destroy ]
 
   # GET /people_teach_branches or /people_teach_branches.json
   def index
@@ -59,12 +59,11 @@ class UsersTeachBranchesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_people_teach_branch
-      @people_teach_branch = PeopleTeachBranch.find(params[:id])
+    def set_teacher_teach_branch
+      @teacher_teach_branch = TeacherTeachBranch.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def people_teach_branch_params
-      params.require(:people_teach_branch).permit(:people_id, :branch_id)
+    def teacher_teach_branch_params
+      params.require(:teacher_teach_branch).permit(:user_id, :branch_id)
     end
 end

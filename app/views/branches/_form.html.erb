@@ -27,8 +27,8 @@
   </div>
 
   <div>
-    <%= form.label :moyenne, style: "display: block" %>
-    <%= form.number_field :moyenne %>
+    <%= form.label :teacher_ids, "Teachers", style: "display: block" %>
+    <%= form.collection_select :teacher_ids, Teacher.all, :id, :name, {}, { multiple: true, size: Teacher.count } %>
   </div>
 
   <div>

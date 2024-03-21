@@ -3,11 +3,12 @@ class BranchesController < ApplicationController
 
   # GET /branches or /branches.json
   def index
-    @branches = Branch.all
+    @branches = Branch.includes(teacher_teach_branches: :teacher).all
   end
 
   # GET /branches/1 or /branches/1.json
   def show
+    @teachers = @branch.teachers
   end
 
   # GET /branches/new
@@ -22,9 +23,14 @@ class BranchesController < ApplicationController
   # POST /branches or /branches.json
   def create
     @branch = Branch.new(branch_params)
-
+  
     respond_to do |format|
       if @branch.save
+        teacher_ids = params[:branch][:teacher_ids].reject(&:blank?).uniq
+        teacher_ids.each do |teacher_id|
+          @branch.teacher_teach_branches.create(user_id: teacher_id)
+        end
+  
         format.html { redirect_to branch_url(@branch), notice: "Branch was successfully created." }
         format.json { render :show, status: :created, location: @branch }
       else
@@ -33,11 +39,17 @@ class BranchesController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /branches/1 or /branches/1.json
   def update
     respond_to do |format|
       if @branch.update(branch_params)
+        @branch.teacher_teach_branches.destroy_all
+        params[:branch][:teacher_ids].each do |teacher_id|
+          @branch.teacher_teach_branches.create(teacher_id: teacher_id) unless teacher_id.blank?
+        end if params[:branch][:teacher_ids].present?
+  
         format.html { redirect_to branch_url(@branch), notice: "Branch was successfully updated." }
         format.json { render :show, status: :ok, location: @branch }
       else
@@ -46,6 +58,7 @@ class BranchesController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /branches/1 or /branches/1.json
   def destroy
@@ -65,6 +78,6 @@ class BranchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def branch_params
-      params.require(:branch).permit(:name, :code, :status, :moyenne)
+      params.require(:branch).permit(:name, :code, :status, :moyenne, teacher_ids: [])
     end
 end

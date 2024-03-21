@@ -60,12 +60,7 @@
     <%= form.label :password_digest, style: "display: block" %>
     <%= form.text_field :password_digest %>
   </div>
-
-  <div>
-    <%= form.label :type, style: "display: block" %>
-    <%= form.text_field :type %>
-  </div>
-
+  
   <div>
     <%= form.label :school_class_id, "Master class", style: "display: block" %>
     <%= form.collection_select :school_class_id, SchoolClass.all, :id, :name, include_blank: true %>

@@ -10,13 +10,12 @@
   </p>
 
   <p>
-    <strong>Status:</strong>
-    <%= branch.status %>
+    <strong>Teachers:</strong>
+    <% if branch.teachers.any? %>
+      <%= branch.teachers.map(&:name).join(", ") %>
+    <% else %>
+      No teachers assigned
+    <% end %>
   </p>
-
-  <p>
-    <strong>Moyenne:</strong>
-    <%= branch.moyenne %>
-  </p>
-
 </div>
+

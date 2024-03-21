@@ -3,12 +3,17 @@
 <h1>Branches</h1>
 
 <div id="branches">
-  <% @branches.each do |branch| %>
-    <%= render branch %>
-    <p>
-      <%= link_to "Show this branch", branch %>
-    </p>
-  <% end %>
+ <% @branches.each do |branch| %>
+  <tr>
+    <td>
+      <%= link_to branch.name, branch %>
+      <% branch.teachers.each do |teacher| %>
+        <%= teacher.name %><br>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+
 </div>
 
 <%= link_to "New branch", new_branch_path %>

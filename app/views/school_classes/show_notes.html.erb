@@ -14,12 +14,24 @@
       <tr>
         <td><%= student.name %></td>
         <% @branches.each do |branch| %>
-          <td><%= @notes[student.id][branch.id] %></td>
+          <td>
+            <% note_record = @notes[student.id][branch.id] %>
+            <% if note_record %>
+              <%= note_record.note %>
+              <%= link_to 'Modifier', edit_note_path(id: note_record.id) %>
+            <% else %>
+              <%= form_with(model: Note.new, url: notes_path, local: true) do |form| %>
+                <%= form.number_field :note, in: 0..20 %>
+                <%= form.hidden_field :user_id, value: student.id %>
+                <%= form.hidden_field :branch_id, value: branch.id %>
+                <%= form.submit "Attribuer" %>
+              <% end %>
+            <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 
 <%= link_to "Retour", school_classes_path %>

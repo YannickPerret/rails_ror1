@@ -1,9 +1,10 @@
 class NotesController < ApplicationController
   before_action :set_note, only: %i[ show edit update destroy ]
+  
 
   # GET /notes or /notes.json
   def index
-    @notes = Note.all
+    @notes = Note.where(student: current_user)
 
   end
 
@@ -22,10 +23,15 @@ class NotesController < ApplicationController
 
   # POST /notes or /notes.json
   def create
-    @note = Note.new(note_params)
-
+    @note = Note.new(note_params.except(:branch_id))
+  
     respond_to do |format|
       if @note.save
+        # Créez l'association avec la branche après avoir enregistré la note
+        if params[:note][:branch_id].present?
+          NoteEvaluateBranch.create(note_id: @note.id, branch_id: params[:note][:branch_id])
+        end
+  
         format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
         format.json { render :show, status: :created, location: @note }
       else
@@ -34,6 +40,7 @@ class NotesController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /notes/1 or /notes/1.json
   def update
@@ -66,6 +73,6 @@ class NotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def note_params
-      params.require(:note).permit(:note, :people_id, :branch_id, :school_class_id)
+      params.require(:note).permit(:note, :user_id, :branch_id, :school_class_id)
     end
 end

@@ -1,6 +1,5 @@
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: %i[ show edit update destroy ]
-  helper_method :selected_teacher
 
   def selected_teacher(branch, school_class)
     teacher_conduct = TeacherConductSchoolClass.find_by(branch: branch, school_class: school_class)
@@ -8,39 +7,51 @@ class SchoolClassesController < ApplicationController
   end
 
   def show_notes
-  @school_class = SchoolClass.find(params[:id])
-  @students = @school_class.students
-  @branches = @school_class.branches
-
-  @notes = {}
-  @students.each do |student|
-    @notes[student.id] = {}
-    @branches.each do |branch|
-      note_record = Note.joins(:note_evaluate_branches).where(person: student, note_evaluate_branches: { branch_id: branch.id }).first
-      @notes[student.id][branch.id] = note_record ? note_record.note : "N/A"
+    @school_class = SchoolClass.find(params[:id])
+    @students = @school_class.students
+    @branches = @school_class.branches
+  
+    @notes = {}
+    @students.each do |student|
+      @notes[student.id] = {}
+      @branches.each do |branch|
+        note_record = Note.joins(:note_evaluate_branches)
+                          .where(user_id: student.id, note_evaluate_branches: { branch_id: branch.id })
+                          .first
+        @notes[student.id][branch.id] = note_record
+      end
     end
   end
-end
+  
+  
 
  # GET /school_classes/:id/edit_branches
  def edit_branches
   @school_class = SchoolClass.find(params[:id])
   @available_branches = Branch.all
-  @teachers = User.where(type: 'Teacher') 
+  @teachers = User.where(type: 'Teacher')
 end
 
-# PATCH/PUT /school_classes/:id/update_branches
 def update_branches
   @school_class = SchoolClass.find(params[:id])
-  if update_branches_and_teachers
-    redirect_to @school_class, notice: 'Les branches et les enseignants ont été mis à jour avec succès.'
+
+  submitted_branch_ids = params[:school_class][:branch_ids].reject(&:blank?).map(&:to_i)
+  current_branch_ids = @school_class.branch_ids
+
+  branches_to_add = submitted_branch_ids - current_branch_ids
+  branches_to_remove = current_branch_ids - submitted_branch_ids
+
+  ActiveRecord::Base.transaction do
+    @school_class.branch_ids += branches_to_add
+    @school_class.branch_ids -= branches_to_remove
+  end
+
+  if @school_class.save
+    redirect_to @school_class, notice: 'Les branches ont été mises à jour avec succès.'
   else
-    @available_branches = Branch.all
-    @teachers = User.where(type: 'Teacher')
-    render :edit_branches
+    render :edit_branches, alert: 'Une erreur est survenue.'
   end
 end
-
 
   # GET /school_classes or /school_classes.json
   def index
@@ -111,6 +122,7 @@ end
     def school_class_params
       params.require(:school_class).permit(:name, :status, teacher_ids: [])
     end
+
     def school_class_branches_params
       params.require(:school_class).permit(branch_ids: [])
     end

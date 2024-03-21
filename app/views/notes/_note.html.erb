@@ -5,8 +5,15 @@
   </p>
 
   <p>
-    <strong>People:</strong>
-    <%= note.people_id %>
+    <strong>Student:</strong>
+    <%= note.student.name %>
+  </p>
+
+  <p>
+    <strong>Branches:</strong>
+    <% note.branches.each do |branch| %>
+      <%= branch.name %><%= "," unless branch == note.branches.last %>
+    <% end %>
   </p>
 
 </div>
