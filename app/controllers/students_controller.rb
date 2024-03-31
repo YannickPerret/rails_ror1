@@ -1,6 +1,9 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
+  def report
+    @student = Student.find(params[:id])
+  end
   def index
     @students = Student.all
   end

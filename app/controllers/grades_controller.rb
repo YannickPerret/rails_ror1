@@ -3,7 +3,11 @@ class GradesController < ApplicationController
 
   # GET /grades or /grades.json
   def index
-    @grades = Grade.all
+    if current_user.student?
+      @grades = current_user.grades
+    else
+      @grades = Grade.all
+    end
   end
 
   # GET /grades/1 or /grades/1.json

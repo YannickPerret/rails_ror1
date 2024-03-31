@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Note</title>
+    <title>Gestion des notes - CPNV 2024</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,6 +10,32 @@
   </head>
 
   <body>
+  <header>
+    <nav>
+      <%= link_to 'Home', root_path %>
+      <% if current_user %>
+
+        <% if current_user.student? %>
+          <%= link_to 'My notes', student_notes_path(current_user) %>
+        <% else %>
+          <%= link_to 'Semester', promotions_path %>
+          <%= link_to 'Branches', branches_path %>
+          <%= link_to 'School Class', school_classes_path %>
+          <%= link_to 'Students', students_path %>
+          <% if current_user.supervisor? %>
+            <%= link_to 'Teachers', teachers_path %>
+            <%= link_to 'Supervisors', supervisors_path %>
+          <% end %>
+        <% end %>
+        <%= button_to 'Logout', '/logout', method: :delete %>
+      <% else %>
+        <%= link_to 'Login', '/login' %>
+      <% end %>
+    </nav>
+  </header>
+  <main>
+    <%= render 'layouts/flash' %>
     <%= yield %>
+  </main>
   </body>
 </html>
