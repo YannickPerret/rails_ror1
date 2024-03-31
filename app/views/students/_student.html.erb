@@ -1,7 +1,63 @@
 <div id="<%= dom_id student %>">
+  <h1>Student Details</h1>
+
   <p>
-    <strong>Name:</strong>
-    <%= student.name %>
+    <strong>First Name:</strong>
+    <%= @student.firstname %>
   </p>
+
+  <p>
+    <strong>Last Name:</strong>
+    <%= @student.lastname %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= @student.email %>
+  </p>
+
+  <p>
+    <strong>Phone:</strong>
+    <%= @student.phone %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= @student.address %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= @student.city %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= @student.state %>
+  </p>
+
+  <p>
+    <strong>NPA Code:</strong>
+    <%= @student.npa %>
+  </p>
+
+  <p>
+    <strong>Country:</strong>
+    <%= @student.country %>
+  </p>
+
+  <p>
+    <strong>School Classes:</strong>
+    <% if @student.school_classes.any? %>
+    <ul>
+      <% @student.school_classes.each do |school_class| %>
+        <li><%= school_class.name %></li>
+      <% end %>
+    </ul>
+    <% else %>
+      <span>This student is not assigned to any classes.</span>
+    <% end %>
+  </p>
+
 
 </div>

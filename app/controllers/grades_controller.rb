@@ -4,7 +4,8 @@ class GradesController < ApplicationController
   # GET /grades or /grades.json
   def index
     if current_user.student?
-      @grades = current_user.grades
+      @student = Student.find(params[:student_id])
+      @grades = @student.grades
     else
       @grades = Grade.all
     end

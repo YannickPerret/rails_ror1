@@ -14,17 +14,19 @@
     <nav>
       <%= link_to 'Home', root_path %>
       <% if current_user %>
-
         <% if current_user.student? %>
-          <%= link_to 'My notes', student_notes_path(current_user) %>
+          <%= link_to 'My Grades', student_grades_path(current_user) %>
         <% else %>
-          <%= link_to 'Semester', promotions_path %>
-          <%= link_to 'Branches', branches_path %>
-          <%= link_to 'School Class', school_classes_path %>
+          <%= link_to 'Semesters', semesters_path %>
+          <%= link_to 'Subjects', subjects_path %>
+          <%= link_to 'School Classes', school_classes_path %>
           <%= link_to 'Students', students_path %>
+          <%= link_to 'Class-Student Associations', class_students_path %>
+          <%= link_to 'Class-Subject-Semester Associations', class_subject_semesters_path %>
           <% if current_user.supervisor? %>
             <%= link_to 'Teachers', teachers_path %>
             <%= link_to 'Supervisors', supervisors_path %>
+            <%= link_to 'Teacher-Subject Associations', teacher_subjects_path %>
           <% end %>
         <% end %>
         <%= button_to 'Logout', '/logout', method: :delete %>
@@ -32,6 +34,7 @@
         <%= link_to 'Login', '/login' %>
       <% end %>
     </nav>
+
   </header>
   <main>
     <%= render 'layouts/flash' %>

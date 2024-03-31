@@ -1,0 +1,28 @@
+<h1>Teachers</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @teachers.each do |teacher| %>
+    <tr>
+      <td><%= teacher.lastname %></td>
+      <td><%= teacher.firstname %></td>
+      <td><%= teacher.email %></td>
+      <td>
+        <%= link_to 'Show', teacher_path(teacher) %>
+        <%= link_to 'Edit', edit_teacher_path(teacher) %>
+        <%= link_to 'Delete', teacher_path(teacher), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Teacher', new_teacher_path %>

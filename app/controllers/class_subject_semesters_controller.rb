@@ -25,7 +25,7 @@ class ClassSubjectSemestersController < ApplicationController
 
     respond_to do |format|
       if @class_subject_semester.save
-        format.html { redirect_to class_subject_semester_url(@class_subject_semester), notice: "Class subject semester was successfully created." }
+        format.html { redirect_to @class_subject_semester, notice: "Class subject semester was successfully created." }
         format.json { render :show, status: :created, location: @class_subject_semester }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -64,7 +64,7 @@ class ClassSubjectSemestersController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def class_subject_semester_params
-      params.require(:class_subject_semester).permit(:school_class_id, :subject_id, :semester_id)
-    end
+  def class_subject_semester_params
+    params.require(:class_subject_semester).permit(:school_class_id, :semester_id, :subject_id)
+  end
 end

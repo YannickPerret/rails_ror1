@@ -1,0 +1,71 @@
+<h1>New Teacher</h1>
+
+<%= form_with(model: @teacher, local: true) do |form| %>
+  <% if @teacher.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@teacher.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+        <% @teacher.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :firstname %>
+    <%= form.text_field :firstname, id: :student_firstname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lastname %>
+    <%= form.text_field :lastname, id: :student_lastname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, id: :student_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, id: :student_phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :student_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :student_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :student_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %>
+    <%= form.number_field :zip, id: :student_zip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_field :country, id: :student_country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, id: :student_password %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', teachers_path %>

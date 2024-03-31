@@ -1,32 +1,20 @@
-<%= form_with(model: class_subject_semester) do |form| %>
-  <% if class_subject_semester.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(class_subject_semester.errors.count, "error") %> prohibited this class_subject_semester from being saved:</h2>
-
-      <ul>
-        <% class_subject_semester.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :school_class_id, style: "display: block" %>
-    <%= form.text_field :school_class_id %>
+<%= form_with(model: @class_subject_semester, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :school_class_id %>
+    <%= form.collection_select :school_class_id, SchoolClass.all, :id, :name, include_blank: true %>
   </div>
 
-  <div>
-    <%= form.label :subject_id, style: "display: block" %>
-    <%= form.text_field :subject_id %>
+  <div class="field">
+    <%= form.label :semester_id %>
+    <%= form.collection_select :semester_id, Semester.all, :id, :name_and_year, include_blank: true %>
   </div>
 
-  <div>
-    <%= form.label :semester_id, style: "display: block" %>
-    <%= form.text_field :semester_id %>
+  <div class="field">
+    <%= form.label :subject_id %>
+    <%= form.collection_select :subject_id, Subject.all, :id, :name, include_blank: true %>
   </div>
 
-  <div>
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

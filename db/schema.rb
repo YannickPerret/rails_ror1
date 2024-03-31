@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_31_124007) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_31_213238) do
   create_table "class_students", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "school_class_id", null: false
+    t.integer "semester_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_class_id"], name: "index_class_students_on_school_class_id"
+    t.index ["semester_id"], name: "index_class_students_on_semester_id"
     t.index ["student_id"], name: "index_class_students_on_student_id"
   end
 
@@ -82,13 +84,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_31_124007) do
     t.string "phone"
     t.integer "npa"
     t.string "city"
+    t.string "state"
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "class_students", "school_classes"
-  add_foreign_key "class_students", "students"
+  add_foreign_key "class_students", "semesters"
+  add_foreign_key "class_students", "users", column: "student_id"
   add_foreign_key "class_subject_semesters", "school_classes"
   add_foreign_key "class_subject_semesters", "semesters"
   add_foreign_key "class_subject_semesters", "subjects"

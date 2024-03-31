@@ -1,18 +1,21 @@
 <h1>Welcome to the Dashboard</h1>
-<p>Please log in to continue.</p>
 
-<%= form_with(scope: :session, url: sessions_create_path, local: true) do |form| %>
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email, required: true %>
-  </div>
+<% if current_user %>
+  <p>You are logged in as <%= current_user.email %>.</p>
+  <% else %>
+    <%= form_with(scope: :session, url: sessions_create_path, local: true) do |form| %>
+      <div>
+        <%= form.label :email %>
+        <%= form.email_field :email, required: true %>
+      </div>
 
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password, required: true %>
-  </div>
+      <div>
+        <%= form.label :password %>
+        <%= form.password_field :password, required: true %>
+      </div>
 
-  <div>
-    <%= form.submit "Log in" %>
-  </div>
+      <div>
+        <%= form.submit "Log in" %>
+      </div>
+    <%end %>
 <% end %>

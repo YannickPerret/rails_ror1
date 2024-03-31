@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :phone
       t.integer :npa
       t.string :city
+      t.string :state
       t.string :country
 
       t.timestamps

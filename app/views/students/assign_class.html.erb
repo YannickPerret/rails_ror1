@@ -1,0 +1,33 @@
+<h1>Assign School Class to <%= @student.fullname %></h1>
+
+<% if @class_student.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@class_student.errors.count, "error") %> prohibited this class_student from being saved:</h2>
+    <ul>
+      <% @class_student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= form_with(model: @student, url: update_class_student_path(@student), method: :patch) do |form| %>
+  <div class="field">
+    <%= form.label :school_class_id, "School Class" %>
+    <%= form.collection_select :school_class_id, @school_classes, :id, :name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :semester_id, "Semester" %>
+    <%= form.collection_select :semester_id, @semesters, :id, :name, include_blank: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Assign Class" %>
+  </div>
+<% end %>
+
+
+
+<%= link_to 'Back', student_path(@student) %>

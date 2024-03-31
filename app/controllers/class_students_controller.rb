@@ -25,7 +25,7 @@ class ClassStudentsController < ApplicationController
 
     respond_to do |format|
       if @class_student.save
-        format.html { redirect_to class_student_url(@class_student), notice: "Class student was successfully created." }
+        format.html { redirect_to @class_student, notice: "Class student was successfully created." }
         format.json { render :show, status: :created, location: @class_student }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,6 +47,19 @@ class ClassStudentsController < ApplicationController
     end
   end
 
+  def update_class
+    @student = Student.find(params[:id])
+    @class_student = ClassStudent.find_or_initialize_by(student_id: @student.id)
+
+    if @class_student.update(school_class_id: params[:student][:school_class_id], semester_id: params[:student][:semester_id])
+      redirect_to @student, notice: 'School class and semester were successfully assigned.'
+    else
+      @school_classes = SchoolClass.all
+      @semesters = Semester.all
+      render :assign_class, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /class_students/1 or /class_students/1.json
   def destroy
     @class_student.destroy!
@@ -64,7 +77,7 @@ class ClassStudentsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def class_student_params
-      params.require(:class_student).permit(:student_id, :school_class_id)
-    end
+  def class_student_params
+    params.require(:class_student).permit(:student_id, :school_class_id)
+  end
 end

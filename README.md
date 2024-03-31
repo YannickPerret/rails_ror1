@@ -25,11 +25,11 @@ Things you may want to cover:
 
 
 * Scaffold
-  rails generate scaffold User type:string lastname:string firstname:string email:string password_digest:string address:string phone:string npa:integer city:string country:string
+  rails generate scaffold User type:string lastname:string firstname:string email:string password_digest:string address:string phone:string npa:integer city:string country:string, state:string
   rails generate scaffold SchoolClass name:string
   rails generate scaffold Subject name:string archived:boolean
   rails generate scaffold Grade value:float student:references subject:references semester:references
   rails generate scaffold Semester name:string year:integer
-  rails generate scaffold ClassStudent student:references school_class:references
+  rails generate scaffold ClassStudent student:references school_class:references semester:references
   rails generate scaffold TeacherSubject teacher:references subject:references
   rails generate scaffold ClassSubjectSemester school_class:references subject:references semester:references
