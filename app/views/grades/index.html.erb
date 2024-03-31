@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Grades</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Value</th>
+    <th>Student</th>
+    <th>Subject</th>
+    <th>Semester</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @grades.each do |grade| %>
+    <tr>
+      <td><%= grade.value %></td>
+      <td><%= grade.student.full_name %></td> <!-- Assurez-vous que la méthode full_name est définie dans le modèle Student -->
+      <td><%= grade.subject.name %></td>
+      <td><%= grade.semester.name %></td>
+      <td>
+        <%= link_to 'Show', grade %>
+        <%= link_to 'Edit', edit_grade_path(grade) %>
+        <%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Grade', new_grade_path %>
