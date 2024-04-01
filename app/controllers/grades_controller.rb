@@ -17,8 +17,12 @@ class GradesController < ApplicationController
 
   # GET /grades/new
   def new
-    @grade = Grade.new
+    @student = Student.find(params[:student_id])
+    @semester = Semester.find(params[:semester_id])
+    @subject = Subject.find(params[:subject_id])
+    @grade = Grade.new(student_id: @student.id, semester_id: @semester.id, subject_id: @subject.id)
   end
+
 
   # GET /grades/1/edit
   def edit
@@ -27,15 +31,10 @@ class GradesController < ApplicationController
   # POST /grades or /grades.json
   def create
     @grade = Grade.new(grade_params)
-
-    respond_to do |format|
-      if @grade.save
-        format.html { redirect_to grade_url(@grade), notice: "Grade was successfully created." }
-        format.json { render :show, status: :created, location: @grade }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @grade.errors, status: :unprocessable_entity }
-      end
+    if @grade.save
+      redirect_to @grade, notice: 'Grade was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -69,7 +68,9 @@ class GradesController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def grade_params
-      params.require(:grade).permit(:value, :student_id, :subject_id, :semester_id)
-    end
+  def grade_params
+    params.require(:grade).permit(:value, :student_id, :subject_id, :semester_id)
+  end
+
+
 end

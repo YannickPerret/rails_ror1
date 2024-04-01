@@ -5,6 +5,29 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
+  def generate_grade
+    @student = Student.find(params[:id])
+    @semesters = @student.class_students.map(&:semester)
+  end
+
+  def generate_report
+    @student = Student.find(params[:id])
+    @selected_semesters = Semester.find(params[:semester_ids])
+
+    respond_to do |format|
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Report for #{@student.fullname}"
+
+        @selected_semesters.each do |semester|
+          pdf.text "Semester: #{semester.name} (#{semester.year})"
+        end
+        send_data pdf.render, filename: "report.pdf", type: 'application/pdf', disposition: 'attachment'
+      end
+    end
+  end
+
+
   def assign_class
     @student = Student.find(params[:id])
     @school_classes = SchoolClass.all
@@ -24,7 +47,14 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
+    @semesters_with_subjects = @student.class_students.includes(school_class: { class_subject_semesters: :subject }).map do |cs|
+      {
+        semester: cs.school_class.class_subject_semesters.first.semester,
+        subjects: cs.school_class.class_subject_semesters.map(&:subject).uniq
+      }
+    end.uniq { |item| item[:semester].id }
   end
+
 
   def new
     @student = Student.new

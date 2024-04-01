@@ -1,17 +1,10 @@
-<div id="<%= dom_id class_subject_semester %>">
-  <p>
-    <strong>School class:</strong>
-    <%= class_subject_semester.school_class_id %>
-  </p>
-
-  <p>
-    <strong>Subject:</strong>
-    <%= class_subject_semester.subject_id %>
-  </p>
-
-  <p>
-    <strong>Semester:</strong>
-    <%= class_subject_semester.semester_id %>
-  </p>
-
-</div>
+<tr>
+  <td><%= class_subject_semester.school_class.name %></td>
+  <td><%= class_subject_semester.subject.name %></td>
+  <td><%= class_subject_semester.semester.name %> <%= class_subject_semester.semester.year %></td>
+  <td>
+    <%= link_to 'Show', class_subject_semester_path(class_subject_semester) %>
+    <%= link_to 'Edit', edit_class_subject_semester_path(class_subject_semester) %>
+    <%= link_to 'Destroy', class_subject_semester, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </td>
+</tr>

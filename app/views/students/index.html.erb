@@ -24,6 +24,8 @@
         <%= link_to 'Show', student %>
         <%= link_to 'Edit', edit_student_path(student) %>
         <%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Generate Grade', generate_grade_student_path(student), method: :get %>
+
       </td>
     </tr>
   <% end %>

@@ -1,37 +1,24 @@
-<%= form_with(model: grade) do |form| %>
-  <% if grade.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(grade.errors.count, "error") %> prohibited this grade from being saved:</h2>
+<%= form_with(model: @grade, local: true) do |form| %>
 
-      <ul>
-        <% grade.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form.hidden_field :student_id, value: @student.id %>
 
-  <div>
-    <%= form.label :value, style: "display: block" %>
-    <%= form.text_field :value %>
+
+  <div class="field">
+    <%= form.label :value, 'Value' %>
+    <%= form.number_field :value, in: 1..6 %>
   </div>
 
-  <div>
-    <%= form.label :student_id, style: "display: block" %>
-    <%= form.text_field :student_id %>
+  <div class="field">
+    <%= form.hidden_field :semester_id, value: @semester.id %>
+    <p><strong>Semester:</strong> <%= @semester.name %></p>
   </div>
 
-  <div>
-    <%= form.label :subject_id, style: "display: block" %>
-    <%= form.text_field :subject_id %>
+  <div class="field">
+    <%= form.hidden_field :subject_id, value: @subject.id %>
+    <p><strong>Subject:</strong> <%= @subject.name %></p>
   </div>
 
-  <div>
-    <%= form.label :semester_id, style: "display: block" %>
-    <%= form.text_field :semester_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= form.submit 'Save' %>
   </div>
 <% end %>

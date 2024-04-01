@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     get 'report', on: :member
 
     member do
+      get 'generate_grade'
+      post 'generate_report', defaults: { format: 'pdf' }
       get 'assign_class'
       patch 'update_class'
       get 'assign_semester'
@@ -22,7 +24,7 @@ Rails.application.routes.draw do
   resources :class_students, only: [:create, :destroy, :index, :new, :edit, :update]
   resources :teacher_subjects, only: [:create, :destroy, :index, :new, :edit, :update]
 
-  resources :class_subject_semesters, only: [:index, :new, :create]
+  resources :class_subject_semesters
 
 
   get 'login', to: 'sessions#new'

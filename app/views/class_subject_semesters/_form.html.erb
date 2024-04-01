@@ -1,17 +1,17 @@
 <%= form_with(model: @class_subject_semester, local: true) do |form| %>
   <div class="field">
-    <%= form.label :school_class_id %>
+    <%= form.label :school_class_id, "School Class" %>
     <%= form.collection_select :school_class_id, SchoolClass.all, :id, :name, include_blank: true %>
   </div>
 
   <div class="field">
-    <%= form.label :semester_id %>
+    <%= form.label :semester_id, "Semester" %>
     <%= form.collection_select :semester_id, Semester.all, :id, :name_and_year, include_blank: true %>
   </div>
 
   <div class="field">
-    <%= form.label :subject_id %>
-    <%= form.collection_select :subject_id, Subject.all, :id, :name, include_blank: true %>
+    <%= form.label :subject_ids, "Subjects" %>
+    <%= form.collection_select :subject_ids, Subject.all, :id, :name, {}, { multiple: true, size: 5 } %>
   </div>
 
   <div class="actions">

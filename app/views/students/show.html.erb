@@ -1,8 +1,42 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @student %>
+
+<% @semesters_with_subjects.each do |item| %>
+  <h2>Notes pour <%= item[:semester].name %> (<%= item[:semester].year %>)</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Note</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% item[:subjects].each do |subject| %>
+      <tr>
+        <td><%= subject.name %></td>
+        <td>
+          <% grade = @student.grades.find_by(subject: subject, semester: item[:semester]) %>
+          <%= grade ? grade.value : "Aucune note" %>
+        </td>
+        <td>
+          <% if grade %>
+            <%= link_to 'Modifier', edit_grade_path(id: grade.id) %>
+          <% else %>
+            <%= link_to 'Ajouter Note', new_grade_path(student_id: @student.id, subject_id: subject.id, semester_id: item[:semester].id) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+
 <%= link_to 'Assign a SchoolClass', assign_class_student_path(@student) %> |
-<%= link_to 'Assign a Semester', assign_semester_student_path(@student) %>
+<%= link_to 'Assign a Semester', assign_semester_student_path(@student) %> |
+
 
 <div>
   <%= link_to "Edit this student", edit_student_path(@student) %> |

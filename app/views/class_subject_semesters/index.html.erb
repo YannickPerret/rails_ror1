@@ -2,13 +2,21 @@
 
 <h1>Class subject semesters</h1>
 
-<div id="class_subject_semesters">
+<table>
+  <thead>
+  <tr>
+    <th>School Class</th>
+    <th>Subject</th>
+    <th>Semester</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
   <% @class_subject_semesters.each do |class_subject_semester| %>
-    <%= render class_subject_semester %>
-    <p>
-      <%= link_to "Show this class subject semester", class_subject_semester %>
-    </p>
+    <%= render partial: "class_subject_semester", locals: { class_subject_semester: class_subject_semester } %>
   <% end %>
-</div>
+  </tbody>
+</table>
 
 <%= link_to "New class subject semester", new_class_subject_semester_path %>

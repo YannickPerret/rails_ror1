@@ -21,18 +21,18 @@ class ClassSubjectSemestersController < ApplicationController
 
   # POST /class_subject_semesters or /class_subject_semesters.json
   def create
-    @class_subject_semester = ClassSubjectSemester.new(class_subject_semester_params)
-
-    respond_to do |format|
-      if @class_subject_semester.save
-        format.html { redirect_to @class_subject_semester, notice: "Class subject semester was successfully created." }
-        format.json { render :show, status: :created, location: @class_subject_semester }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @class_subject_semester.errors, status: :unprocessable_entity }
-      end
+    school_class_id = class_subject_semester_params[:school_class_id]
+    semester_id = class_subject_semester_params[:semester_id]
+    params[:class_subject_semester][:subject_ids].reject(&:empty?).each do |subject_id|
+      ClassSubjectSemester.create(
+        school_class_id: school_class_id,
+        semester_id: semester_id,
+        subject_id: subject_id
+      )
     end
+    redirect_to class_subject_semesters_path, notice: 'Subjects were successfully added.'
   end
+
 
   # PATCH/PUT /class_subject_semesters/1 or /class_subject_semesters/1.json
   def update
@@ -65,6 +65,8 @@ class ClassSubjectSemestersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def class_subject_semester_params
-    params.require(:class_subject_semester).permit(:school_class_id, :semester_id, :subject_id)
+    params.require(:class_subject_semester).permit(:school_class_id, :semester_id)
   end
+
+
 end
