@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : class_subject_semesters_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class ClassSubjectSemestersController < ApplicationController
   before_action :set_class_subject_semester, only: %i[ show edit update destroy ]
 

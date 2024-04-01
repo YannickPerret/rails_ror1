@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : supervisors_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class SupervisorsController < ApplicationController
   before_action :set_supervisor, only: [:show, :edit, :update, :destroy]
 

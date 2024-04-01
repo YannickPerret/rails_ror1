@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : teacher_subjects_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class TeacherSubjectsController < ApplicationController
   before_action :set_teacher_subject, only: %i[ show edit update destroy ]
 

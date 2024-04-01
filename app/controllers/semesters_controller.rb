@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : semesters_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class SemestersController < ApplicationController
   before_action :set_semester, only: %i[ show edit update destroy ]
 

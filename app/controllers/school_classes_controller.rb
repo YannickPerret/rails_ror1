@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : school_classes_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class SchoolClassesController < ApplicationController
   before_action :set_school_class, only: %i[ show edit update destroy ]
 

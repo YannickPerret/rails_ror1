@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : school_class.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class SchoolClass < ApplicationRecord
   has_many :class_students
   has_many :students, through: :class_students

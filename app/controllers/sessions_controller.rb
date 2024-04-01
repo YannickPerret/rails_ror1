@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : sessions_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email].downcase)

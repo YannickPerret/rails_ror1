@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : users_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 

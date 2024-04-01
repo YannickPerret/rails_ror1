@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : subject.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class Subject < ApplicationRecord
   has_many :grades
   has_many :teacher_subjects

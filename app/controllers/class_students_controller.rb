@@ -1,3 +1,10 @@
+# ==============================================================================
+# Filename : class_students_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
+
 class ClassStudentsController < ApplicationController
   before_action :set_class_student, only: %i[ show edit update destroy ]
 

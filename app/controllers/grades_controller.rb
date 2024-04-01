@@ -1,3 +1,9 @@
+# ==============================================================================
+# Filename : grades_controller.rb
+# Author         : tchoune
+# Created        : 2024-04-01
+# Last updated : 2024-04-01
+# ==============================================================================
 class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
 
