@@ -2,8 +2,8 @@
 
 <%= render @student %>
 
-<% @semesters_with_subjects.each do |item| %>
-  <h2>Notes pour <%= item[:semester].name %> (<%= item[:semester].year %>)</h2>
+<% @semesters_with_subjects.each do |semester, subjects| %>
+  <h2>Notes pour <%= semester.name %> (<%= semester.year %>)</h2>
   <table>
     <thead>
     <tr>
@@ -13,18 +13,18 @@
     </tr>
     </thead>
     <tbody>
-    <% item[:subjects].each do |subject| %>
+    <% subjects.each do |subject| %>
       <tr>
         <td><%= subject.name %></td>
         <td>
-          <% grade = @student.grades.find_by(subject: subject, semester: item[:semester]) %>
+          <% grade = @student.grades.find_by(subject: subject, semester: semester) %>
           <%= grade ? grade.value : "Aucune note" %>
         </td>
         <td>
           <% if grade %>
             <%= link_to 'Modifier', edit_grade_path(id: grade.id) %>
           <% else %>
-            <%= link_to 'Ajouter Note', new_grade_path(student_id: @student.id, subject_id: subject.id, semester_id: item[:semester].id) %>
+            <%= link_to 'Ajouter Note', new_grade_path(student_id: @student.id, subject_id: subject.id, semester_id: semester.id) %>
           <% end %>
         </td>
       </tr>
@@ -35,7 +35,8 @@
 
 
 <%= link_to 'Assign a SchoolClass', assign_class_student_path(@student) %> |
-<%= link_to 'Assign a Semester', assign_semester_student_path(@student) %> |
+<%= link_to 'Generate Grade', generate_grade_student_path(@student), method: :get %>
+
 
 
 <div>

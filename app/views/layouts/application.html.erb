@@ -21,8 +21,7 @@
           <%= link_to 'Subjects', subjects_path %>
           <%= link_to 'School Classes', school_classes_path %>
           <%= link_to 'Students', students_path %>
-          <%= link_to 'Class-Student Associations', class_students_path %>
-          <%= link_to 'Class-Subject-Semester Associations', class_subject_semesters_path %>
+          <%= link_to 'Assign school class to semester subject', class_subject_semesters_path %>
           <% if current_user.supervisor? %>
             <%= link_to 'Teachers', teachers_path %>
             <%= link_to 'Supervisors', supervisors_path %>

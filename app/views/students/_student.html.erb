@@ -47,17 +47,16 @@
   </p>
 
   <p>
-    <strong>School Classes:</strong>
-    <% if @student.school_classes.any? %>
+    <strong>School Classes and Semesters:</strong>
+    <% if @student.class_students.any? %>
     <ul>
-      <% @student.school_classes.each do |school_class| %>
-        <li><%= school_class.name %></li>
+      <% @student.class_students.each do |class_student| %>
+        <li><%= class_student.school_class.name %> - <%= class_student.semester.name_and_year %></li>
       <% end %>
     </ul>
-    <% else %>
-      <span>This student is not assigned to any classes.</span>
-    <% end %>
+  <% else %>
+    <span>This student is not assigned to any classes.</span>
+  <% end %>
   </p>
-
 
 </div>

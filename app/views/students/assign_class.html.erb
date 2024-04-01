@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= form.label :semester_id, "Semester" %>
-    <%= form.collection_select :semester_id, @semesters, :id, :name, include_blank: true %>
+    <%= form.collection_select :semester_id, @semesters, :id, :name_and_year, include_blank: true %>
   </div>
 
   <div class="actions">

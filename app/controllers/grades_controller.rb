@@ -1,5 +1,5 @@
 class GradesController < ApplicationController
-  before_action :set_grade, only: %i[show edit update destroy]
+  before_action :set_grade, only: [:show, :edit, :update, :destroy]
 
   # GET /grades or /grades.json
   def index
@@ -26,13 +26,17 @@ class GradesController < ApplicationController
 
   # GET /grades/1/edit
   def edit
+    @grade = Grade.find(params[:id])
+    @student = @grade.student
+    @semester = @grade.semester
+    @subject = @grade.subject
   end
 
   # POST /grades or /grades.json
   def create
     @grade = Grade.new(grade_params)
     if @grade.save
-      redirect_to @grade, notice: 'Grade was successfully created.'
+      redirect_to student_path(@grade.student_id), notice: 'Grade was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,14 +47,11 @@ class GradesController < ApplicationController
 
   # PATCH/PUT /grades/1 or /grades/1.json
   def update
-    respond_to do |format|
-      if @grade.update(grade_params)
-        format.html { redirect_to grade_url(@grade), notice: "Grade was successfully updated." }
-        format.json { render :show, status: :ok, location: @grade }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @grade.errors, status: :unprocessable_entity }
-      end
+    @grade = Grade.find(params[:id])
+    if @grade.update(grade_params)
+      redirect_to student_path(@grade.student_id), notice: 'Grade was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -66,9 +67,9 @@ class GradesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_grade
-      @grade = Grade.find(params[:id])
-    end
+  def set_grade
+    @grade = Grade.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
   def grade_params

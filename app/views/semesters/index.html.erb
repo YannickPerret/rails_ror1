@@ -2,13 +2,19 @@
 
 <h1>Semesters</h1>
 
-<div id="semesters">
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Year</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
   <% @semesters.each do |semester| %>
     <%= render semester %>
-    <p>
-      <%= link_to "Show this semester", semester %>
-    </p>
   <% end %>
-</div>
+  </tbody>
+</table>
 
 <%= link_to "New semester", new_semester_path %>

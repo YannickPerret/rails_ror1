@@ -1,12 +1,7 @@
-<div id="<%= dom_id semester %>">
-  <p>
-    <strong>Name:</strong>
-    <%= semester.name %>
-  </p>
-
-  <p>
-    <strong>Year:</strong>
-    <%= semester.year %>
-  </p>
-
-</div>
+<tr id="<%= dom_id semester %>">
+  <td><%= semester.name %></td>
+  <td><%= semester.year %></td>
+  <td>
+    <%= link_to "Show", semester %>
+  </td>
+</tr>
