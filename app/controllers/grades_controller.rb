@@ -1,5 +1,5 @@
 class GradesController < ApplicationController
-  before_action :set_grade, only: %i[ show edit update destroy ]
+  before_action :set_grade, only: %i[show edit update destroy]
 
   # GET /grades or /grades.json
   def index
@@ -34,9 +34,12 @@ class GradesController < ApplicationController
     if @grade.save
       redirect_to @grade, notice: 'Grade was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
+
+
+
 
   # PATCH/PUT /grades/1 or /grades/1.json
   def update
@@ -71,6 +74,7 @@ class GradesController < ApplicationController
   def grade_params
     params.require(:grade).permit(:value, :student_id, :subject_id, :semester_id)
   end
+
 
 
 end

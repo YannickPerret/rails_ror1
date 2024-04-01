@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_31_213238) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_01_003446) do
   create_table "class_students", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "school_class_id", null: false
@@ -97,8 +97,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_31_213238) do
   add_foreign_key "class_subject_semesters", "semesters"
   add_foreign_key "class_subject_semesters", "subjects"
   add_foreign_key "grades", "semesters"
-  add_foreign_key "grades", "students"
   add_foreign_key "grades", "subjects"
+  add_foreign_key "grades", "users", column: "student_id"
   add_foreign_key "teacher_subjects", "subjects"
   add_foreign_key "teacher_subjects", "teachers"
 end

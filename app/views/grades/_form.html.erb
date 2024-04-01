@@ -1,21 +1,13 @@
 <%= form_with(model: @grade, local: true) do |form| %>
-
   <%= form.hidden_field :student_id, value: @student.id %>
+  <%= form.hidden_field :semester_id, value: @semester.id %>
+  <%= form.hidden_field :subject_id, value: @subject.id %>
+
 
 
   <div class="field">
     <%= form.label :value, 'Value' %>
     <%= form.number_field :value, in: 1..6 %>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :semester_id, value: @semester.id %>
-    <p><strong>Semester:</strong> <%= @semester.name %></p>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :subject_id, value: @subject.id %>
-    <p><strong>Subject:</strong> <%= @subject.name %></p>
   </div>
 
   <div class="actions">
