@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @supervisor %>
+
+<div>
+  <%= link_to "Edit this teacher", edit_supervisor_path(@supervisor) %> |
+  <%= link_to "Back to teachers", teachers_path %>
+
+  <%= button_to "Destroy this teacher", @supervisor, method: :delete %>
+</div>

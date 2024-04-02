@@ -1,0 +1,28 @@
+<h1>Teachers</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @supervisors.each do |supervisor| %>
+    <tr>
+      <td><%= supervisor.lastname %></td>
+      <td><%= supervisor.firstname %></td>
+      <td><%= supervisor.email %></td>
+      <td>
+        <%= link_to 'Show', supervisors_path(supervisor) %>
+        <%= link_to 'Edit', edit_supervisor_path(supervisor) %>
+        <%= link_to 'Delete', supervisors_path(supervisor), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Supervisor', new_supervisor_path %>
