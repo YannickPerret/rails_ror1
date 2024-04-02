@@ -105,25 +105,50 @@ ou si vous avez des problèmes avec les droits d'accès :
 
 Le Modèle Conceptuel de Données (MCD) est une représentation visuelle des entités, des attributs et des relations entre les données dans un système. Les formes normales sont des règles de conception de base de données qui garantissent la cohérence et la normalisation des données pour éviter les anomalies et les redondances.
 
+### MLD Schema :
+![Schema MLD](./docs/MLD.jpg "Schema MLD")
+
 ### Entités Principales :
 
-1. **User (Utilisateur) :** Représente les utilisateurs du système, y compris les élèves, les professeurs et les superviseurs. Cette entité contient des informations telles que le prénom, le nom, l'e-mail et le type d'utilisateur.
+1. **Users (Utilisateur) :** Représente les utilisateurs du système, y compris les élèves, les professeurs et les superviseurs. Cette entité contient des informations telles que le prénom, le nom, l'e-mail et le type d'utilisateur.
 
-2. **Subject (Matière) :** Représente les matières enseignées dans le système. Chaque matière a un nom et peut être enseignée par plusieurs professeurs.
+2. **Subjects (Matière) :** Représente les matières enseignées dans le système. Chaque matière a un nom et peut être enseignée par plusieurs professeurs.
 
-3. **Grade (Note) :** Représente les notes attribuées aux élèves pour une matière donnée. Chaque note est associée à un élève, une matière, un semestre et une valeur de note.
+3. **Grades (Note) :** Représente les notes attribuées aux élèves pour une matière donnée. Chaque note est associée à un élève, une matière, un semestre et une valeur de note.
 
-4. **Semester (Semestre) :** Représente les différents semestres académiques dans lesquels les notes sont attribuées. Chaque semestre a une année et peut être associé à plusieurs matières.
+4. **Semesters (Semestre) :** Représente les différents semestres académiques dans lesquels les notes sont attribuées. Chaque semestre a une année et peut être associé à plusieurs matières.
+
+5. **SchoolClasses (Classe Scolaire) :** Représente les différentes classes dans l'école. Chaque classe a un nom unique.
+
+6. **ClassStudents (Élève de la Classe) :** Associe les élèves aux classes et aux semestres, permettant de suivre quels élèves sont dans quelles classes à chaque semestre.
+
+7. **ClassSubjectSemesters (Classe-Matière-Semestre) :** Cette table d'association lie les classes, les matières et les semestres, indiquant quelle matière est enseignée dans quelle classe à chaque semestre.
+
+8. **TeacherSubjects (Enseignant-Matière) :** Relie les enseignants aux matières qu'ils enseignent.
 
 ### Relations :
 
-1. **User - Grade (1:N) :** Un utilisateur (élève) peut avoir plusieurs notes.
+1. **Users (Utilisateurs) - Grades (1:N) :** Un utilisateur (en tant qu'élève) peut avoir plusieurs notes (Grades), mais chaque note est unique à un seul utilisateur.
 
-2. **User - Subject (N:M) :** Un utilisateur (professeur) peut enseigner plusieurs matières, et une matière peut être enseignée par plusieurs utilisateurs (professeurs).
+2. **Users (Utilisateurs) - TeacherSubjects (1:N) :** Un utilisateur (en tant qu'enseignant) peut enseigner plusieurs matières (Subjects), représenté par la relation dans TeacherSubjects.
 
-3. **Subject - Grade (1:N) :** Une matière peut avoir plusieurs notes, chaque note étant associée à une matière spécifique.
+3. **Subjects (Matières) - Grades (1:N) :** Une matière peut être associée à plusieurs notes, mais chaque note concerne une seule matière.
 
-4. **Semester - Subject (N:M) :** Un semestre peut inclure plusieurs matières, et une matière peut être enseignée au cours de plusieurs semestres.
+4. **Subjects (Matières) - ClassSubjectSemesters (1:N) :** Une matière peut être enseignée dans plusieurs classes à différents semestres, comme indiqué dans ClassSubjectSemesters.
+
+5. **Semesters (Semestres) - Grades (1:N) :** Un semestre peut contenir plusieurs notes, avec chaque note attribuée dans le cadre d'un semestre spécifique.
+
+6. **Semesters (Semestres) - ClassSubjectSemesters (1:N) :** Un semestre peut inclure plusieurs associations de classes et matières, représentées dans ClassSubjectSemesters.
+
+7. **SchoolClasses (Classes) - ClassStudents (1:N) :** Une classe peut comprendre plusieurs élèves, comme illustré par les associations dans ClassStudents.
+
+8. **SchoolClasses (Classes) - ClassSubjectSemesters (1:N) :** Une classe peut être liée à plusieurs associations de matières et semestres dans ClassSubjectSemesters.
+
+9. **ClassStudents (Élèves de la Classe) - Users (N:1) :** Plusieurs entrées dans ClassStudents peuvent se référer à un seul élève (User).
+
+10. **ClassSubjectSemesters - Subjects, SchoolClasses, Semesters (N:1) :** Chaque entrée dans ClassSubjectSemesters est associée à une unique matière, classe et semestre.
+
+11. **TeacherSubjects - Users, Subjects (N:1) :** Chaque association dans TeacherSubjects réfère à un unique enseignant (User) et une unique matière (Subject).
 
 ### Formes Normales :
 
@@ -153,3 +178,12 @@ rails
 rails generate scaffold TeacherSubject teacher:references subject:references
 rails generate scaffold ClassSubjectSemester school_class:references subject:references semester:references
 ```
+
+
+## Modèle Conceptuel de Données (MCD) avec Formes Normales
+
+Le Modèle Conceptuel de Données (MCD) est essentiel pour conceptualiser et structurer les relations et les entités au sein d'une base de données, garantissant ainsi une cohérence, une efficacité et une minimisation des redondances. Les formes normales jouent un rôle critique dans la préservation de l'intégrité des données et l'optimisation des performances de la base de données.
+
+### Schéma MLD :
+![Schema MLD](./docs/MLD.jpg "Schema MLD")
+
