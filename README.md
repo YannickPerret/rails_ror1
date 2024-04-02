@@ -178,12 +178,3 @@ rails
 rails generate scaffold TeacherSubject teacher:references subject:references
 rails generate scaffold ClassSubjectSemester school_class:references subject:references semester:references
 ```
-
-
-## Modèle Conceptuel de Données (MCD) avec Formes Normales
-
-Le Modèle Conceptuel de Données (MCD) est essentiel pour conceptualiser et structurer les relations et les entités au sein d'une base de données, garantissant ainsi une cohérence, une efficacité et une minimisation des redondances. Les formes normales jouent un rôle critique dans la préservation de l'intégrité des données et l'optimisation des performances de la base de données.
-
-### Schéma MLD :
-![Schema MLD](./docs/MLD.jpg "Schema MLD")
-
