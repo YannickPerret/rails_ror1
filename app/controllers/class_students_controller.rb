@@ -1,32 +1,32 @@
 # ==============================================================================
-# Filename : class_students_controller.rb
-# Author         : tchoune
-# Created        : 2024-04-01
+# Filename   : class_students_controller.rb
+# Author     : tchoune
+# Created    : 2024-04-01
 # Last updated : 2024-04-01
 # ==============================================================================
 
 class ClassStudentsController < ApplicationController
   before_action :set_class_student, only: %i[ show edit update destroy ]
 
-  # GET /class_students or /class_students.json
+  # Display a list of all class students.
   def index
     @class_students = ClassStudent.all
   end
 
-  # GET /class_students/1 or /class_students/1.json
+  # Display the details of a specific class student.
   def show
   end
 
-  # GET /class_students/new
+  # Initialize a new class student object.
   def new
     @class_student = ClassStudent.new
   end
 
-  # GET /class_students/1/edit
+  # Edit the details of a class student.
   def edit
   end
 
-  # POST /class_students or /class_students.json
+  # Create a new class student record.
   def create
     @class_student = ClassStudent.new(class_student_params)
 
@@ -41,7 +41,7 @@ class ClassStudentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /class_students/1 or /class_students/1.json
+  # Update the details of an existing class student.
   def update
     respond_to do |format|
       if @class_student.update(class_student_params)
@@ -54,6 +54,7 @@ class ClassStudentsController < ApplicationController
     end
   end
 
+  # Update the school class and semester for a specific student.
   def update_class
     @student = Student.find(params[:id])
     @class_student = ClassStudent.find_or_initialize_by(student_id: @student.id)
@@ -67,7 +68,7 @@ class ClassStudentsController < ApplicationController
     end
   end
 
-  # DELETE /class_students/1 or /class_students/1.json
+  # Delete a class student record.
   def destroy
     @class_student.destroy!
 
@@ -78,12 +79,12 @@ class ClassStudentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_class_student
-      @class_student = ClassStudent.find(params[:id])
-    end
+  # Set the class student object based on the provided ID.
+  def set_class_student
+    @class_student = ClassStudent.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
+  # Permit only trusted parameters for class student.
   def class_student_params
     params.require(:class_student).permit(:student_id, :school_class_id)
   end

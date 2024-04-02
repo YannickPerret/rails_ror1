@@ -1,13 +1,14 @@
 # ==============================================================================
-# Filename : grades_controller.rb
-# Author         : tchoune
-# Created        : 2024-04-01
+# Filename   : grades_controller.rb
+# Author     : tchoune
+# Created    : 2024-04-01
 # Last updated : 2024-04-01
 # ==============================================================================
+
 class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
 
-  # GET /grades or /grades.json
+  # Display a list of grades for the current user or all grades if user is not a student.
   def index
     if current_user.student?
       @student = Student.find(params[:student_id])
@@ -17,11 +18,11 @@ class GradesController < ApplicationController
     end
   end
 
-  # GET /grades/1 or /grades/1.json
+  # Display the details of a specific grade.
   def show
   end
 
-  # GET /grades/new
+  # Initialize a new grade object.
   def new
     @student = Student.find(params[:student_id])
     @semester = Semester.find(params[:semester_id])
@@ -29,8 +30,7 @@ class GradesController < ApplicationController
     @grade = Grade.new(student_id: @student.id, semester_id: @semester.id, subject_id: @subject.id)
   end
 
-
-  # GET /grades/1/edit
+  # Edit the details of a grade.
   def edit
     @grade = Grade.find(params[:id])
     @student = @grade.student
@@ -38,7 +38,7 @@ class GradesController < ApplicationController
     @subject = @grade.subject
   end
 
-  # POST /grades or /grades.json
+  # Create a new grade record.
   def create
     @grade = Grade.new(grade_params)
     if @grade.save
@@ -48,10 +48,7 @@ class GradesController < ApplicationController
     end
   end
 
-
-
-
-  # PATCH/PUT /grades/1 or /grades/1.json
+  # Update the details of an existing grade.
   def update
     @grade = Grade.find(params[:id])
     if @grade.update(grade_params)
@@ -61,7 +58,7 @@ class GradesController < ApplicationController
     end
   end
 
-  # DELETE /grades/1 or /grades/1.json
+  # Delete a grade record.
   def destroy
     @grade.destroy!
 
@@ -72,16 +69,13 @@ class GradesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+  # Set the grade object based on the provided ID.
   def set_grade
     @grade = Grade.find(params[:id])
   end
 
-    # Only allow a list of trusted parameters through.
+  # Permit only trusted parameters for grade.
   def grade_params
     params.require(:grade).permit(:value, :student_id, :subject_id, :semester_id)
   end
-
-
-
 end

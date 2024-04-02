@@ -7,16 +7,19 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update_class, :destroy, :assign_class, :assign_semester]
 
-  def report
-    @student = Student.find(params[:id])
-  end
-
+  # Generate grades for a specific student.
   def generate_grade
     @student = Student.find(params[:id])
     @semesters = @student.class_students.map(&:semester)
   end
 
-  def generate_report
+  # This method generates a PDF report for a specific student based on the semesters selected.
+  # It first finds the student and the selected semesters from the request parameters.
+  # If no semesters are selected, it redirects back with an alert message.
+  # It then creates a new PDF document using Prawn, adds the student's name, and for each selected semester,
+  # it adds the semester's name, year, subjects, and grades to the PDF.
+  # If a grade is not available, it displays "N/A".
+  # Finally, it sends the generated PDF as a file download response with the filename "report.pdf".  def generate_report
     @student = Student.find(params[:id])
     if params[:semester_ids].blank?
       redirect_back(fallback_location: root_path, alert: "Please select at least one semester to generate a report.") and return
@@ -103,6 +106,7 @@ class StudentsController < ApplicationController
     end
   end
 
+# Update a specific student
   def update
     if @student.update(student_params)
       redirect_to @student, notice: 'Student was successfully updated.'
@@ -111,6 +115,8 @@ class StudentsController < ApplicationController
     end
   end
 
+
+# Update class of a specific student
   def update_class
     @student = Student.find(params[:id])
     @class_student = ClassStudent.new(student_id: @student.id, school_class_id: params[:student][:school_class_id], semester_id: params[:student][:semester_id])
