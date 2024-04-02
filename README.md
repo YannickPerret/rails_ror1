@@ -9,7 +9,7 @@ Cette application de gestion scolaire permet de gérer les élèves, les classes
 2. Clonez ce dépôt sur votre machine locale :
 
     ```bash
-    git clone https://github.com/votre-utilisateur/votre-projet.git ROR-Yannick
+    git clone https://github.com/YannickPerret/rails_ror1.git ROR-Yannick
     ```
 
 3. Accédez au répertoire de l'application :
