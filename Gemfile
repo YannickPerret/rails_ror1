@@ -29,6 +29,10 @@ gem "jbuilder"
 gem "prawn"
 gem "prawn-table"
 
+gem 'cancancan'
+gem 'sassc-rails'
+
+
 
 
 # Use Redis adapter to run Action Cable in production

@@ -6,7 +6,6 @@
 # ==============================================================================
 class User < ApplicationRecord
   has_secure_password
-
   before_save :downcase_email
 
 
@@ -25,7 +24,7 @@ class User < ApplicationRecord
   end
 
   def supervisor?
-    type == 'supervisor'
+    type == 'Supervisor'
   end
 
   private
